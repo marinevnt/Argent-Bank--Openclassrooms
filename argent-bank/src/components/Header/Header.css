@@ -37,3 +37,14 @@
     color: #fff;
     margin-bottom: 2rem;
   }
+
+  .user-link {
+    text-decoration: none; 
+    cursor: default; 
+}
+.main-nav-infos a {
+    margin-right: 10px;
+}
+.main-nav-infos i {
+  margin-left: 5px;
+}

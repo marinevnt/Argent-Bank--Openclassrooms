@@ -1,6 +1,6 @@
 import React from "react";
-import Banner from "../HomeComponents/Banner/Banner";
-import Feature from "../HomeComponents/Feature/Feature";
+import Banner from "../../components/HomeComponents/Banner/Banner";
+import Feature from "../../components/HomeComponents/Feature/Feature";
 
 function Home () {
     return (
