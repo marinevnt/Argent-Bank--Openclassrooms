@@ -36,7 +36,7 @@
   th:nth-child(3),
   td:nth-child(4),
   th:nth-child(4) {
-    width: 20%;
+    width: 18%;
   }
   .transaction-table tbody tr:nth-child(2) td::before {
     content: "\00a0"; /* Ajoute un espace insécable après le contenu existant */
@@ -51,4 +51,9 @@
     right: 20px;
     top: 10px;
   }
-  
+.chevron-box {
+  width: 20px;
+}
+.pen-item  {
+  margin-left: 10px;
+}

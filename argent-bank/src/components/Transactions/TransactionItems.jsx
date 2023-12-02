@@ -43,7 +43,7 @@ function TransactionItem({ transaction, opened, onClick })
             <td>{transaction.description}</td>
             <td>${transaction.amount}</td>
             <td>${transaction.balance}</td>
-            <td><i className="fa fa-chevron-down" aria-hidden="true" onClick={onClick}></i></td>
+            <td className='chevron-box'><i className="fa fa-chevron-down" aria-hidden="true" onClick={onClick}></i></td>
           </tr>
           {opened && <><tr>
             <td className='thin-text'>Transaction Type</td>
@@ -55,7 +55,7 @@ function TransactionItem({ transaction, opened, onClick })
           <tr>
             <td className='thin-text'>Category</td>
             <td>
-              { !isModifyingCategories ? <>{transaction.category}<i className="fa fa-pencil" onClick={() => setIsModifyingCategories(true)}></i></> : 
+              { !isModifyingCategories ? <>{transaction.category}<i className="fa fa-pencil pen-item" onClick={() => setIsModifyingCategories(true)}></i></> : 
                 <select onChange={handleCategorySelection}>
                   {categories.map((category) => (
                     <option key={category} value={category}>
@@ -75,7 +75,7 @@ function TransactionItem({ transaction, opened, onClick })
             <td> 
               { 
                 !isModifyingNote ? 
-                <>{transaction.note}<i className="fa fa-pencil" onClick={() => setIsModifyingNote(true)}></i></> : 
+                <>{transaction.note}<i className="fa fa-pencil pen-item" onClick={() => setIsModifyingNote(true)}></i></> : 
                 <input  type="text"
                         value={editableNote} 
                         onChange={e => setEditableNote(e.target.value)} 
