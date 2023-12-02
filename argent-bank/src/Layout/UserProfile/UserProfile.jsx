@@ -37,6 +37,7 @@ function UserProfile() {
         else
             setOpenedAccountId(accountId);
 
+        // useless, but with an API, it will retrieve transaction for give account id
         dispatch(getTransactions());
     };
 
@@ -88,9 +89,9 @@ function UserProfile() {
                 )}
             </div>
             <h2 className="sr-only">Accounts</h2>
-                {accounts.map(account => (
-                    <>
-                    <section className="account" key={account.id} onClick={() => handleAccountOnClick(account.id)}>
+            {accounts.map(account => (
+                    <div key={`account${account.id}`}>
+                    <section className="account"  onClick={() => handleAccountOnClick(account.id)}>
                         <div className="account-content-wrapper">
                             <h3 className="account-title">{account.title}</h3>
                             <p className="account-amount">${account.amount}</p>
@@ -103,10 +104,10 @@ function UserProfile() {
                     <section>
                         {openedAccountId === account.id &&
                         transactions.map(transaction => (
-                            <TransactionItem key={transaction.id} transaction={transaction} opened={transaction.id === openedTransactionId} onClick={() => handleTransactionOnClick(transaction.id)}/>
+                            <TransactionItem key={`account${account.id}transaction${transaction.id}`} transaction={transaction} opened={transaction.id === openedTransactionId} onClick={() => handleTransactionOnClick(transaction.id)}/>
                         ))}
                     </section>
-                    </>
+                    </div>
                 ))}
         </main>
     );

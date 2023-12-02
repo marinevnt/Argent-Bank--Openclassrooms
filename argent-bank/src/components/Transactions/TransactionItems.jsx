@@ -1,8 +1,31 @@
 import React, { useState } from 'react';
 import './TransactionItems.css';
+import { useDispatch} from "react-redux";
+import { setTransactionNote, setTransactionCategory } from '../../lib/redux/Slices/transactionSlice';
+import { useSelector } from 'react-redux';
 
-const TransactionItem = ({ transaction, opened, onClick }) => {
-  console.log(opened);
+function TransactionItem({ transaction, opened, onClick })
+{
+  const [isModifyingNote, setIsModifyingNote] = useState(false);
+  const [isModifyingCategories, setIsModifyingCategories] = useState(false);
+  const [editableNote, setEditableNote] = useState(transaction.note);
+  const categories = useSelector(state => state.transaction.categories);
+  const dispatch = useDispatch();
+
+  const handleKeyEnterPressed = (event) => {
+    if (event.key === 'Enter') {
+      // if key pressed is Enter, then update transaction note
+      if(editableNote) dispatch(setTransactionNote({transactionId:transaction.id, note:editableNote}));
+      setIsModifyingNote(false);
+    }
+  }
+
+  const handleCategorySelection = (event) => {
+    let selectedCategory = event.target.value;
+    dispatch(setTransactionCategory({transactionId:transaction.id, category:selectedCategory}));
+    setIsModifyingCategories(false);
+  }
+
   return (
     <section className="transaction-table">
       <table>
@@ -20,23 +43,47 @@ const TransactionItem = ({ transaction, opened, onClick }) => {
             <td>{transaction.description}</td>
             <td>${transaction.amount}</td>
             <td>${transaction.balance}</td>
-            <button onClick={onClick}>click</button>
+            <td><i className="fa fa-chevron-down" aria-hidden="true" onClick={onClick}></i></td>
           </tr>
           {opened && <><tr>
             <td className='thin-text'>Transaction Type</td>
             <td>{transaction.type}</td>
             <td></td>
             <td></td>
+            <td></td>
           </tr>
           <tr>
             <td className='thin-text'>Category</td>
-            <td>{transaction.category}</td>
+            <td>
+              { !isModifyingCategories ? <>{transaction.category}<i className="fa fa-pencil" onClick={() => setIsModifyingCategories(true)}></i></> : 
+                <select onChange={handleCategorySelection}>
+                  {categories.map((category) => (
+                    <option key={category} value={category}>
+                      {category}
+                    </option>
+                  ))}
+                </select>        
+              }
+              
+            </td>
+            <td></td>
             <td></td>
             <td></td>
           </tr>
           <tr>
             <td className='thin-text'>Note</td>
-            <td>{transaction.note}</td>
+            <td> 
+              { 
+                !isModifyingNote ? 
+                <>{transaction.note}<i className="fa fa-pencil" onClick={() => setIsModifyingNote(true)}></i></> : 
+                <input  type="text"
+                        value={editableNote} 
+                        onChange={e => setEditableNote(e.target.value)} 
+                        onKeyDown={handleKeyEnterPressed} >
+                </input> 
+              }
+            </td>
+            <td></td>
             <td></td>
             <td></td>
           </tr>
