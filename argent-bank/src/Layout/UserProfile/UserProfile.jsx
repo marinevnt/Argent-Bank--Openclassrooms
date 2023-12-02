@@ -4,6 +4,7 @@ import { useSelector } from 'react-redux';
 import { useDispatch} from "react-redux";
 import { updateUsername } from "../../lib/redux/Slices/userSlice";
 import { getTransactions } from '../../lib/redux/Slices/transactionSlice';
+import TransactionItem from '../../components/Transactions/TransactionItems';
 
 function UserProfile() {
     const { userName, firstName, lastName } = useSelector(state => state.user.profile);
@@ -12,7 +13,8 @@ function UserProfile() {
     const [isEditing, setIsEditing] = useState(false);
     const accounts = useSelector(state => state.account.accounts);
     const transactions = useSelector(state => state.transaction.transactions);
-    const [transactionsOpened, setTransactionsOpened] = useState(false);
+    const [openedAccountId, setOpenedAccountId] = useState(null);
+    const [openedTransactionId, setOpenedTransactionId] = useState(null);
 
     const dispatch = useDispatch();
 
@@ -29,11 +31,22 @@ function UserProfile() {
         // annuler les modifications
         setIsEditing(false);
     };
-    const handleAccountOnClick = () => {
-        let accountId = 0; //TODO: Récupérer id account
+    const handleAccountOnClick = (accountId) => {
+        if(accountId === openedAccountId)
+            setOpenedAccountId(null);
+        else
+            setOpenedAccountId(accountId);
+
         dispatch(getTransactions());
-        setTransactionsOpened(!transactionsOpened);
-    }
+    };
+
+    const handleTransactionOnClick = (transactionId) => {
+        console.log("transacation on click");
+        if(transactionId === openedTransactionId)
+            setOpenedTransactionId(null)
+        else
+            setOpenedTransactionId(transactionId);
+    };
 
     return (
         <main className="main bg-dark main-margin">
@@ -77,7 +90,7 @@ function UserProfile() {
             <h2 className="sr-only">Accounts</h2>
                 {accounts.map(account => (
                     <>
-                    <section className="account" key={account.id} onClick={handleAccountOnClick}>
+                    <section className="account" key={account.id} onClick={() => handleAccountOnClick(account.id)}>
                         <div className="account-content-wrapper">
                             <h3 className="account-title">{account.title}</h3>
                             <p className="account-amount">${account.amount}</p>
@@ -88,46 +101,9 @@ function UserProfile() {
                         </div>
                     </section>
                     <section>
-                        {transactionsOpened && transactions.map(transaction => (
-                            <section className="transaction-table" key={transaction.id}>
-                                <table>
-                                    <thead>
-                                        <tr>
-                                            <th>Date</th>
-                                            <th>Description</th>
-                                            <th>Amount</th>
-                                            <th>Balance</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td>{transaction.date}</td>
-                                            <td>{transaction.description}</td>
-                                            <td>${transaction.amount}</td>
-                                            <td>${transaction.balance}</td>
-                                        </tr>
-                                        <tr>
-                                            <td className='thin-text'>Transaction Type</td>
-                                            <td>{transaction.type}</td>
-                                            <td></td>
-                                            <td></td>
-                                        </tr>
-                                        <tr>
-                                            <td className='thin-text'>Category</td>
-                                            <td>{transaction.category}</td>
-                                            <td></td>
-                                            <td></td>
-                                            
-                                        </tr>
-                                        <tr>
-                                            <td className='thin-text'>Note</td>
-                                            <td>{transaction.note}</td>
-                                            <td></td>
-                                            <td></td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </section>
+                        {openedAccountId === account.id &&
+                        transactions.map(transaction => (
+                            <TransactionItem key={transaction.id} transaction={transaction} opened={transaction.id === openedTransactionId} onClick={() => handleTransactionOnClick(transaction.id)}/>
                         ))}
                     </section>
                     </>

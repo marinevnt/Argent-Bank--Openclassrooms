@@ -3,7 +3,7 @@ import { createSlice } from '@reduxjs/toolkit'
 const transactionSlice = createSlice({
     name: "transaction",
     initialState: {
-        transactions: []
+        transactions: [],
     },
     reducers: {
         getTransactions: (state, actions) => {

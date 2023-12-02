@@ -1,0 +1,54 @@
+
+.transaction-table table {
+    border-collapse: collapse;
+    width: 80%;
+    margin: 20px auto;
+  }
+  .transaction-table td {
+    background-color: #00bc77;
+    color: #fff;
+  }
+.transaction-table tr:first-child td:first-child {
+  border-top-left-radius: 5px;
+}
+.transaction-table tr:first-child td:last-child {
+  border-top-right-radius: 5px;
+}
+.transaction-table tr:last-child td:first-child {
+  border-bottom-left-radius: 5px;
+}
+.transaction-table tr:last-child td:last-child {
+  border-bottom-right-radius: 5px;
+}
+  .transaction-table th, td {
+    padding: 8px;
+    text-align: left;
+  }
+  .transaction-table tr {
+    color: #fff;
+    font-weight: bold;
+    align-items: center;
+    position: relative;
+  }
+  td:nth-child(1),
+  th:nth-child(1),
+  td:nth-child(3),
+  th:nth-child(3),
+  td:nth-child(4),
+  th:nth-child(4) {
+    width: 20%;
+  }
+  .transaction-table tbody tr:nth-child(2) td::before {
+    content: "\00a0"; /* Ajoute un espace insécable après le contenu existant */
+    display: block;
+    margin-bottom: 2px; 
+  }
+  .thin-text {
+    font-weight: 300;
+  }
+  .transaction-table button {
+    position: absolute;
+    right: 20px;
+    top: 10px;
+  }
+  
