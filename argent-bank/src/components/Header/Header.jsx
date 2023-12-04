@@ -7,7 +7,6 @@ import './Header.css';
 
 function Header() {
     const userToken = useSelector((state) => state.user.token);
-    console.log("userToken", userToken);
 
     const dispatch = useDispatch();
 

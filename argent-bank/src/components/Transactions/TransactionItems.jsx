@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
 import './TransactionItems.css';
-import { useDispatch} from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { setTransactionNote, setTransactionCategory } from '../../lib/redux/Slices/transactionSlice';
-import { useSelector } from 'react-redux';
 
 function TransactionItem({ transaction, opened, onClick })
 {
@@ -57,6 +56,9 @@ function TransactionItem({ transaction, opened, onClick })
             <td>
               { !isModifyingCategories ? <>{transaction.category}<i className="fa fa-pencil pen-item" onClick={() => setIsModifyingCategories(true)}></i></> : 
                 <select onChange={handleCategorySelection}>
+                  <option value="">
+                    Sélectionnez une catégorie
+                  </option>
                   {categories.map((category) => (
                     <option key={category} value={category}>
                       {category}

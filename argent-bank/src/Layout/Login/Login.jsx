@@ -14,10 +14,8 @@ function Login () {
     const navigate = useNavigate();
     
     const handleLoginEvent = (e) => {
-        console.log("handle login");
         e.preventDefault();
         dispatch(loginUser({email:username, password:password})).then((result) => {
-            console.log(result);
             let token = result.payload;
             if(token)
             {

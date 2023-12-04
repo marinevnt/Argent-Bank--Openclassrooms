@@ -7,7 +7,6 @@ const accountSlice = createSlice({
     },
     reducers: {
         getAccounts: (state) => {
-            console.log("Faking accounts data");
             state.accounts = [
                 {
                     id: 0,

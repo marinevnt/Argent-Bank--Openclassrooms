@@ -20,7 +20,7 @@ const transactionSlice = createSlice({
             description: "Xbox",
             amount: 500,
             balance: 800,
-            category: "Numeric",
+            category: "Hobbies",
             note: "Gift",
             type: "Electronic"
         }],
@@ -40,7 +40,6 @@ const transactionSlice = createSlice({
 
             if(transaction)
             {
-                console.log("set transaction " + transaction.description + "with note " + note);
                 transaction.note = note;
             }
             else
@@ -54,7 +53,6 @@ const transactionSlice = createSlice({
 
             if(transaction)
             {
-                console.log("set transaction " + transaction.description + "with category " + category);
                 transaction.category = category;
             }
             else
@@ -62,8 +60,6 @@ const transactionSlice = createSlice({
                 console.error("transaction " + transactionId + "not found");
             }
         },
-        getTransactions: (state) => {
-        }
     }
 });
 
