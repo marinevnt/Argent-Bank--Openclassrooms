@@ -57,5 +57,3 @@ function Login () {
 }
 
 export default Login;
-
-//<Link href="./user.html" className="sign-in-button" >Sign In</Link>

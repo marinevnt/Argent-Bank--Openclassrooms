@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import TransactionItem from '../Transactions/TransactionItems'; 
 import { useSelector } from 'react-redux';
+import './Account.css';
 
 function AccountItem({ account, opened, onClick }) {
     const transactions = useSelector(state => state.transaction.transactions);
